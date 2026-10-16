@@ -1,0 +1,129 @@
+---
+import { list } from "../lib/content";
+// everything in <head>: meta, open graph, the theme script, the font and json-ld.
+import { Font } from "astro:assets";
+import { site } from "../site.config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+  published?: Date;
+}
+
+const { title, description = site.seo.description, noindex = false, type = "website", published } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.headline}`;
+const base = Astro.site!.href;
+const canonical = new URL(Astro.url.pathname, base).href;
+const ogImage = new URL(site.seo.ogImage, base).href;
+const isHome = Astro.url.pathname === "/";
+
+const awards = (await list("achievements")).map((a) => `${a.data.title}, ${a.data.badge}`);
+
+const person = {
+  "@type": "Person",
+  "@id": `${base}#person`,
+  name: site.name,
+  givenName: "Naman",
+  familyName: "Goyal",
+  url: base,
+  image: ogImage,
+  email: `mailto:${site.email}`,
+  jobTitle: "Electrical Engineering Student",
+  description: site.seo.description,
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: site.affiliation,
+    alternateName: ["IIT Delhi", "IITD"],
+    sameAs: "https://home.iitd.ac.in/",
+  },
+  alumniOf: { "@type": "CollegeOrUniversity", name: site.affiliation, sameAs: "https://home.iitd.ac.in/" },
+  homeLocation: { "@type": "Place", name: site.location },
+  knowsAbout: site.seo.keywords,
+  award: awards,
+  sameAs: site.profiles,
+};
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    person,
+    {
+      "@type": "WebSite",
+      "@id": `${base}#website`,
+      url: base,
+      name: site.name,
+      publisher: { "@id": `${base}#person` },
+      inLanguage: "en",
+    },
+    isHome
+      ? {
+          "@type": "ProfilePage",
+          "@id": canonical,
+          url: canonical,
+          name: fullTitle,
+          isPartOf: { "@id": `${base}#website` },
+          mainEntity: { "@id": `${base}#person` },
+        }
+      : {
+          "@type": type === "article" ? "BlogPosting" : "WebPage",
+          "@id": canonical,
+          url: canonical,
+          name: fullTitle,
+          headline: title,
+          description,
+          isPartOf: { "@id": `${base}#website` },
+          author: { "@id": `${base}#person` },
+          ...(published ? { datePublished: published.toISOString() } : {}),
+        },
+  ],
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={site.name} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)" />
+
+<!-- set the theme before first paint so dark mode never flashes white -->
+<script is:inline>
+  (() => {
+    let t;
+    try { t = localStorage.getItem("theme"); } catch {}
+    if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+
+<Font cssVariable="--font-sans" preload />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title={`${site.name}: Writing`} href="/rss.xml" />
+<link rel="me" href="https://github.com/namangoyal-work" />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="keywords" content={site.seo.keywords.join(", ")} />
+{site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+{site.verification.bing && <meta name="msvalidate.01" content={site.verification.bing} />}
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

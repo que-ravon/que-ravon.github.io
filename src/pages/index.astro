@@ -1,128 +1,114 @@
 ---
+import { list } from "../lib/content";
+import { Picture } from "astro:assets";
+import { getEntry, render } from "astro:content";
 import Base from "../layouts/Base.astro";
-import Section from "../components/Section.astro";
-import { site } from "../data/site";
-import { news } from "../data/news";
-import { researchEntries } from "../data/research";
-import { projects } from "../data/projects";
+import Icon from "../components/Icon.astro";
+import { site } from "../site.config";
+import { inline, isExternal } from "../lib/inline";
+import portrait from "../assets/portrait.jpg";
 
-const links = [
-  { label: "github", href: site.socials.github },
-  { label: "linkedin", href: site.socials.linkedin },
-  { label: "email", href: `mailto:${site.email}` },
-  { label: "resume", href: "/resume" },
-];
+const home = await getEntry("pages", "home");
+if (!home) throw new Error("src/content/pages/home.md is missing");
+const { Content } = await render(home);
 
-const featuredProjects = projects.slice(0, 3);
+const news = await list("news");
+const education = await list("education");
+const next = (await list("experience")).find((r) => r.data.upcoming);
 ---
 
 <Base>
-  <header class="text-center">
-    <h1 class="text-[1.95rem] font-extrabold tracking-[-0.02em]">{site.name}</h1>
-    <p class="mt-1 text-[0.95rem] u-faint">// I like to solve problems.</p>
-  </header>
+  <div class="home">
+    <aside class="profile" aria-label="Profile">
+      <Picture
+        src={portrait}
+        alt="Naman Goyal"
+        class="avatar"
+        widths={[184, 368, 552]}
+        sizes="184px"
+        formats={["avif", "webp"]}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <h1>{site.name}</h1>
+      <p class="role">Electrical Engineering<br />IIT Delhi</p>
 
-  <div class="mt-9 space-y-4">
-    <p class="prose-j">
-      I am a third-year in Electrical Engineering at the <a class="a" href="https://home.iitd.ac.in/" target="_blank" rel="noopener">Indian
-      Institute of Technology Delhi</a>, ranked first in my department. I work on quantum computing in <a class="a" href="/research">Prof. Rajendra Kumar's group</a>. I am an
-      incoming Software Engineering Intern at <a class="a" href="https://www.virtu.com/" target="_blank" rel="noopener">Virtu
-      Financial</a> for the summer of 2027.
-    </p>
+      <ul class="profile-links">
+        {
+          site.links.map((l) => (
+            <li>
+              <a href={l.href} rel={isExternal(l.href) ? "me noopener" : undefined}>
+                <Icon name={l.icon} />
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
 
-    <p class="prose-j">
-      Previously I was a Research Intern in the Trusted Systems Group at <a class="a" href="https://cispa.de/" target="_blank" rel="noopener">CISPA
-      Helmholtz Center for Information Security</a>, where I ran a measurement study of the hardware supply chain:
-      forensically grading 131 open-source RISC-V CPU and GPU cores against their own security claims, by reading RTL,
-      testbenches and commit history rather than READMEs. A publication is in progress.
-    </p>
+      <div class="side-block">
+        <h2>Education</h2>
+        <ul class="side-list">
+          {
+            education.map((e) => (
+              <li>
+                <Icon name="cap" />
+                <span>
+                  B.Tech., {e.data.short}
+                  <small>{e.data.period}</small>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
 
-    <p class="prose-j">
-      Outside research I build low-latency systems — execution paths in C++, data planes in FPGA fabric, and the
-      hardware underneath them. I also compete: olympiads in physics, astronomy and mathematics, and competitive
-      programming.
-    </p>
+      {
+        next && (
+          <div class="side-block">
+            <h2>Next</h2>
+            <ul class="side-list">
+              <li>
+                <Icon name="briefcase" />
+                <span>
+                  {next.data.org}
+                  <small>{next.data.title}</small>
+                  <small>
+                    {next.data.location}, {next.data.period}
+                  </small>
+                </span>
+              </li>
+            </ul>
+          </div>
+        )
+      }
+    </aside>
+
+    <div>
+      <section class="bio" aria-label="About">
+        <Content />
+      </section>
+
+      <section class="section" aria-labelledby="news">
+        <h2 class="section-title" id="news">News</h2>
+        <dl class="news">
+          {
+            news.map((n) => (
+              <>
+                <dt>{n.data.date}</dt>
+                <dd>
+                  <Fragment set:html={inline(n.data.text)} />
+                  {n.data.href && (
+                    <a class="more" href={n.data.href}>
+                      More
+                    </a>
+                  )}
+                </dd>
+              </>
+            ))
+          }
+        </dl>
+      </section>
+    </div>
   </div>
-
-  <p class="mt-7 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.85rem]">
-    {
-      links.map((l) => (
-        <a
-          class="b"
-          href={l.href}
-          target={l.href.startsWith("http") ? "_blank" : undefined}
-          rel={l.href.startsWith("http") ? "noopener" : undefined}
-        >
-          {l.label}
-        </a>
-      ))
-    }
-  </p>
-
-  <Section title="News">
-    <ul class="space-y-3">
-      {
-        news.map((n) => (
-          <li class="row">
-            <span class="u-faint">[{n.date}]</span>
-            <p class="u-muted">
-              {n.text}
-              {n.href && (
-                <>
-                  {" "}
-                  <a class="a" href={n.href}>
-                    more
-                  </a>
-                </>
-              )}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
-
-  <Section title="Research">
-    <ul class="space-y-6">
-      {
-        researchEntries.map((r) => (
-          <li>
-            <a class="a font-bold" href="/research">
-              {r.title}
-            </a>
-            <p class="mt-0.5 text-[0.88rem] u-faint">
-              {r.org} &middot; {r.period}
-            </p>
-            <p class="prose-j mt-1.5 u-muted">{r.summary}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
-
-  <Section title="Selected Work">
-    <ul class="space-y-6">
-      {
-        featuredProjects.map((p) => (
-          <li>
-            <span class="font-bold">{p.title}</span>
-            <span class="ml-2 text-[0.82rem] u-faint">{p.year}</span>
-            <p class="prose-j mt-1 u-muted">{p.blurb}</p>
-            <p class="mt-1.5 text-[0.82rem]">
-              {p.repo ? (
-                <a class="b" href={p.repo} target="_blank" rel="noopener">
-                  code
-                </a>
-              ) : (
-                <span class="u-faint">[private]</span>
-              )}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-    <p class="mt-6 text-[0.85rem]">
-      <a class="b" href="/projects">all projects</a>
-    </p>
-  </Section>
 </Base>

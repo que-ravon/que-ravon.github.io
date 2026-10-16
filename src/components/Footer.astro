@@ -1,9 +1,16 @@
 ---
-import { site } from "../data/site";
+import { site } from "../site.config";
+const year = new Date().getFullYear();
 ---
 
-<footer class="sep mt-16 pt-6 text-center text-[0.78rem] u-faint">
-  <p>
-    &copy; 2026 {site.name} &middot; built with <a class="a" href="https://astro.build" target="_blank" rel="noopener">Astro</a>
-  </p>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>&copy; {year} {site.name}</span>
+    <span class="footer-links">
+      <a href={`mailto:${site.email}`}>Email</a>
+      <a href="https://github.com/namangoyal-work" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/namangoyalo" rel="noopener">LinkedIn</a>
+      <a href="/rss.xml">RSS</a>
+    </span>
+  </div>
 </footer>

@@ -1,0 +1,164 @@
+# grouped by phase, then group, in the order they appear here.
+# badge carries the headline result. detail is one or two plain sentences.
+# only add what a certificate can back up.
+
+- id: cispa-hackathon
+  phase: University
+  group: Awards
+  badge: Winner
+  title: CISPA European AI and Cybersecurity Hackathon
+  detail: First place at the European hackathon on AI and cybersecurity hosted by the CISPA Helmholtz Center for Information Security.
+
+- id: atlassian-fasttrack
+  phase: University
+  group: Awards
+  badge: Winner
+  title: Atlassian FastTrack
+  detail: First place at Atlassian's AI-assisted hackathon, building working software against the clock with AI tooling.
+
+- id: ams-derive
+  phase: University
+  group: Awards
+  badge: Bronze
+  title: AMS Derive Prosterior
+  detail: Bronze, a top-3 finish among 150+ finalists, in a quantitative finance competition in mathematics and programming. The final round was held at IIT Bombay.
+
+- id: usaco
+  phase: Pre-University
+  group: Olympiads
+  badge: Platinum
+  title: USA Computing Olympiad and COCI
+  detail: Reached Platinum, the highest division of USACO, with a perfect 1000/1000 score (rank 1) in the promoting contest. Placed rank 1 in a round of the Croatian Open Competition in Informatics.
+
+- id: inpho
+  phase: Pre-University
+  group: Olympiads
+  badge: Gold
+  title: Indian National Physics Olympiad (INPhO)
+  detail: Gold medal with a top-37 national rank, one stage below the camp that selects India's IPhO team.
+
+- id: inao
+  phase: Pre-University
+  group: Olympiads
+  badge: Gold
+  title: Indian National Astronomy Olympiad (INAO)
+  detail: Gold medal with a top-29 national rank, on the selection path to the International Olympiad on Astronomy and Astrophysics.
+
+- id: inmo
+  phase: Pre-University
+  group: Olympiads
+  badge: Awardee
+  title: Indian National Mathematical Olympiad (INMO)
+  detail: INMO Awardee in 2022, and invited to the IMO Training Camp that selects India's team for the International Mathematical Olympiad.
+
+- id: injso
+  phase: Pre-University
+  group: Olympiads
+  badge: Top 36
+  title: Indian National Junior Science Olympiad (INJSO)
+  detail: Top 36 in India in 2021, after qualifying as one of 310 out of 10,013 NSEJS candidates.
+
+- id: incho
+  phase: Pre-University
+  group: Olympiads
+  badge: Top 54
+  title: Indian National Chemistry Olympiad (INChO)
+  detail: Top 54 in India in 2023, after a top-1% finish in NSEC.
+
+- id: technothlon
+  phase: Pre-University
+  group: Olympiads
+  badge: Top 5
+  title: Technothlon International School Championship
+  detail: Top 5 in the Juniors category of IIT Guwahati's international championship in logic and problem solving, with a Gold certificate, in 2021.
+
+- id: bmo
+  phase: Pre-University
+  group: Olympiads
+  badge: Distinction
+  title: British Mathematical Olympiad, Round 2
+  detail: Certificate of Distinction in the invitation-only second round of the UKMT's national olympiad, and best in school.
+
+- id: amc10
+  phase: Pre-University
+  group: Olympiads
+  badge: 138/150
+  title: AMC 10B
+  detail: Scored 138 out of 150 on the MAA's American Mathematics Competition and made the Honor Roll.
+
+- id: nmtc
+  phase: Pre-University
+  group: Olympiads
+  badge: 2nd
+  title: National Mathematics Talent Contest (NMTC)
+  detail: Second place in the AMTI's national proof-based mathematics contest.
+
+- id: sharygin
+  phase: Pre-University
+  group: Olympiads
+  badge: Diploma
+  title: Sharygin Geometry Olympiad
+  detail: Diploma in the correspondence round of the 16th Sharygin olympiad, an international competition in classical geometry.
+
+- id: panini
+  phase: Pre-University
+  group: Olympiads
+  badge: Bronze
+  title: Panini Linguistics Olympiad
+  detail: Bronze medal in the second round of India's linguistics olympiad.
+
+- id: bhabha
+  phase: Pre-University
+  group: Olympiads
+  badge: Round 2
+  title: Dr. Homi Bhabha Balvaidnyanik Competition
+  detail: Cleared the written stage of this multi-stage science competition and was invited to the practical round.
+
+- id: atlas
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Fellow
+  title: Atlas Fellowship
+  detail: Selected for the Atlas Fellowship, which has an acceptance rate in the single digits, with a scholarship and a summer program in the San Francisco Bay Area.
+
+- id: espr
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Selected
+  title: European Summer Program on Rationality (ESPR)
+  detail: Selected for the residential program for mathematically gifted students covering mathematics, computer science and cognitive science.
+
+- id: hbcse-camp
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Camp
+  title: Mathematical Olympiad Orientation Camp, HBCSE
+  detail: Invited to the national camp run by the Homi Bhabha Centre for Science Education (TIFR) in May 2021.
+
+- id: ap-scholar
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Distinction
+  title: AP Scholar with Distinction
+  detail: The College Board's highest AP Scholar tier, for an average of at least 3.5 across all AP exams and scores of 3 or more on five or more exams.
+
+- id: stems
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Finalist
+  title: STEMS, Chennai Mathematical Institute
+  detail: Finalist in mathematics with a Certificate of Excellence in CMI's Scholastic Test of Excellence in Mathematical Sciences.
+
+- id: limit
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Top 15
+  title: LIMIT, Indian Statistical Institute Bangalore
+  detail: Top 15 in Category A of ISI Bangalore's international online mathematics competition.
+
+- id: mvpp
+  phase: Pre-University
+  group: Fellowships and programs
+  badge: Scholar
+  title: Mukhyamantri Vigyan Protsahan Pariksha
+  detail: Selected as a scholar in the Government of Delhi's science talent examination.

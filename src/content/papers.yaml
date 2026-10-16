@@ -1,0 +1,25 @@
+# newest first. authors are written exactly as on the paper; the site bolds "Naman Goyal".
+
+- id: mwc-quantum-2026
+  title: Quantum Query Complexity of Minimum Weight Cycles
+  authors: [Naman Goyal]
+  venue: Preprint
+  year: 2026
+  abstract: >-
+    We study the minimum weight cycle problem (MWC) and the minimum weight triangle problem (MWT) in the quantum query model,
+    for n-vertex graphs with integer edge weights in [M] given by their adjacency matrix. Roditty and Vassilevska Williams
+    showed that the two problems are classically equivalent. We show that an exact minimum weight cycle of an undirected graph
+    can be found with Õ(n<sup>19/12</sup>) queries, while Ω(n<sup>3/2</sup>) queries are necessary. The algorithm learns only
+    the n<sup>7/6</sup> lightest vertex pairs, uses quantum counting to locate weight thresholds above them, applies a strict
+    form of the Moore bound to bound the optimum and the size of each weight class, and searches the classes for the few heavy
+    edges of an optimal cycle with nested quantum walks. A simpler version gives Õ(n<sup>5/3</sup>) queries, and searching for
+    fewer heavy edges trades queries for approximation, with a 2-approximation in Õ(n<sup>8/5</sup>) queries and a tight
+    O(log n)-approximation in Õ(n<sup>3/2</sup>) queries. In contrast, MWT costs O(n<sup>9/7</sup> log M) queries, so the
+    classical equivalence becomes a polynomial separation. For cycles of constant length we give explicit exponents, such as
+    Õ(n<sup>125/83</sup>) for the minimum weight 5-cycle, and we prove that deciding whether a graph has a k-cycle of total
+    weight exactly zero requires Ω(n<sup>2−2/(⌊k/2⌋+1)</sup>) queries for every constant k ≥ 4. Finally, non-adaptive learning
+    graphs cannot beat n<sup>2</sup> for cycles of about log n edges, and we conjecture that exact MWC on directed graphs
+    requires n<sup>2−o(1)</sup> queries.
+  links:
+    - { label: PDF, href: "https://zenodo.org/records/23107182" }
+    - { label: DOI, href: "https://doi.org/10.5281/zenodo.23107182" }

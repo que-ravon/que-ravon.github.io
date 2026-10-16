@@ -1,0 +1,38 @@
+# newest first. state only what can be pointed to.
+
+- id: quantum-mwc
+  title: Quantum Complexity of Minimum Weight Cycles and Triangles
+  org: IIT Delhi
+  role: Undergraduate Researcher
+  period: 2026 – present
+  status: Preprint
+  summary: >-
+    Roditty and Vassilevska Williams showed that finding a minimum weight cycle in a weighted graph is classically
+    equivalent to finding a minimum weight triangle. This project asks what the two problems cost in the quantum query
+    model, and whether the equivalence survives there. It does not: the two problems separate polynomially.
+  points:
+    - Gave an algorithm that finds an exact minimum weight cycle of an undirected graph with Õ(n<sup>19/12</sup>) queries, against a lower bound of Ω(n<sup>3/2</sup>).
+    - Showed that minimum weight triangle needs only O(n<sup>9/7</sup> log M) queries, so the classical equivalence becomes a polynomial separation.
+    - Gave approximation trade-offs, including a 2-approximation in Õ(n<sup>8/5</sup>) queries and a tight O(log n)-approximation in Õ(n<sup>3/2</sup>) queries.
+    - Proved that detecting a zero-weight k-cycle needs Ω(n<sup>2−2/(⌊k/2⌋+1)</sup>) queries for every constant k ≥ 4.
+  tags: [Quantum algorithms, Query complexity, Fine-grained complexity, Quantum walks]
+  links:
+    - { label: Preprint, href: "https://zenodo.org/records/23107182" }
+    - { label: "Roditty and Vassilevska Williams (2011)", href: "https://arxiv.org/abs/1104.2882" }
+
+- id: cispa-riscv
+  title: A Measurement Study of Open-Source RISC-V Processor Security
+  org: CISPA Helmholtz Center for Information Security, Trusted Systems Group
+  role: Research Intern
+  period: May – Jul 2026
+  status: Paper in preparation
+  summary: >-
+    Open-source RISC-V cores are now shipping in real products, but there has been no systematic look at how well
+    their security claims hold up. This study graded 131 open-source cores on what their code, tests and history
+    actually show, not on what their documentation says.
+  points:
+    - Audited all 131 cores by hand, reading the RTL, testbenches and commit history of each.
+    - Designed the taxonomy used for grading, with 13 dimensions and 50 attributes covering reproducibility, verification and CI/CD resilience.
+    - Wrote the reproducible Python analysis pipeline and its inter-rater reliability module, which produce 50+ figures and two composite hardware-security indices.
+    - Found that 95% of the cores have no side-channel defenses and 77% have no secure boot.
+  tags: [RISC-V, Hardware security, RTL analysis, Measurement study]

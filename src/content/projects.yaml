@@ -1,0 +1,63 @@
+# selected work only. everything else is on github.
+
+- id: tick-to-trade
+  title: FPGA Tick-to-Trade Engine
+  year: "2026"
+  stack: [SystemVerilog, SymbiYosys, cocotb, AXI-Stream]
+  summary: A tick-to-trade pipeline in FPGA fabric. Ethernet, IPv4, UDP and market-data frames are parsed as the bytes arrive, and a trade decision leaves the chip with no CPU, cache or interrupt in the critical path.
+  points:
+    - Every frame gets its verdict exactly 5 clock cycles after the last payload byte. The fixed latency is proven for all inputs by k-induction.
+    - Proved with SymbiYosys that a trade cannot fire unless every validation check has passed on a complete frame, and that a risk cap on order quantity always holds.
+    - Emits 16-byte decision records with an echoed sequence number on AXI-Stream, so the host can measure end-to-end latency.
+  links:
+    - { label: GitHub, href: "https://github.com/namangoyal-work/fpga-tick-to-trade" }
+
+- id: net-parser
+  title: Wire-Speed FPGA Network Parser
+  year: "2026"
+  stack: [SystemVerilog, Vivado, SymbiYosys, cocotb]
+  summary: A streaming Ethernet, IPv4 and UDP header parser with a fixed-latency Level-1 trigger that makes one accept or reject decision per frame without ever stalling the wire.
+  points:
+    - Closes timing at 250 MHz on an Artix-7 (Fmax about 281 MHz) in 109 LUTs and 149 flip-flops, under 0.2% of the device.
+    - Raised Fmax from 159 to 281 MHz by pipelining the checksum fold out of the trigger's critical path.
+    - Formally proved the constant verdict latency, and tested the design with malformed and edge-case packets from a cocotb and scapy bench.
+  links:
+    - { label: GitHub, href: "https://github.com/namangoyal-work/fpga-net-parser" }
+
+- id: order-book
+  title: Limit Order Book and ITCH Feed Handler
+  year: "2025"
+  stack: [C++20, Linux]
+  summary: A market-data feed handler and limit order book for NASDAQ ITCH 5.0.
+  points:
+    - Decodes all 23 ITCH 5.0 message types over UDP multicast with MoldUDP64 framing.
+    - Keeps bid and ask sides in separate price-level trees with FIFO queues, and an O(1) hash map for cancels and modifies.
+
+- id: solovay-kitaev
+  title: Solovay–Kitaev Unitary Decomposer
+  year: "2026"
+  stack: [Python, NumPy]
+  summary: An implementation of the Solovay–Kitaev algorithm that approximates any SU(2) unitary by a sequence from a discrete gate set, to precision ε in O(log<sup>2.71</sup>(1/ε)) gates.
+  points:
+    - Uses a precomputed base-case table and a vectorised nearest-neighbour search for the recursion.
+  links:
+    - { label: GitHub, href: "https://github.com/namangoyal-work/unitary-decomposer" }
+
+- id: kan-pinn
+  title: KAN-PINN for Battery State of Health
+  year: "2025"
+  stack: [PyTorch, pykan]
+  summary: A physics-informed Kolmogorov–Arnold network that estimates lithium-ion battery state of health from a single discharge cycle.
+  points:
+    - Constrains predictions with a Verhulst degradation ODE through an augmented Lagrangian, with learnable physical parameters and per-sample multipliers.
+    - Runs end to end on the MIT and Stanford fast-charging dataset.
+  links:
+    - { label: GitHub, href: "https://github.com/namangoyal-work/KAN-PINN-Battery-SOH" }
+
+- id: qicqacqoe
+  title: QicQacQoe
+  year: "2025"
+  stack: [Python, Qiskit, Aer]
+  summary: Tic-tac-toe where every square is a simulated qubit. Every move is appended to a real Qiskit circuit, and every measurement is a simulated collapse of the board state.
+  links:
+    - { label: GitHub, href: "https://github.com/namangoyal-work/QicQacQoe" }

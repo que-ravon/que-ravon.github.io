@@ -1,0 +1,28 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { fmtDate, getPosts } from "../../lib/writing";
+import "katex/dist/katex.min.css";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={post.data.title} description={post.data.description} type="article" published={post.data.date}>
+  <article class="page">
+    <p class="faint" style="margin:0 0 .5rem;font-size:.9rem"><a href="/writing/">Writing</a> / {post.data.category}</p>
+    <h1 class="page-title">{post.data.title}</h1>
+    <p class="post-meta">
+      {fmtDate(post.data.date)}
+      {post.data.draft && <strong style="color:#c2410c"> &middot; Draft, not published</strong>}
+    </p>
+    <div class="prose" style="margin-top:2rem">
+      <Content />
+    </div>
+  </article>
+</Base>

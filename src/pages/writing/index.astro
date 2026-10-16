@@ -1,0 +1,84 @@
+---
+import { list } from "../../lib/content";
+import Base from "../../layouts/Base.astro";
+import { fmtDate, getPosts } from "../../lib/writing";
+
+const posts = await getPosts();
+const live = new Set(posts.map((p) => p.id));
+const puzzles = await list("puzzles");
+const categories = ["Puzzles", "Essays", "Notes"] as const;
+const other = categories
+  .map((c) => ({ name: c, posts: posts.filter((p) => p.data.category === c && c !== "Puzzles") }))
+  .filter((g) => g.posts.length > 0);
+---
+
+<Base
+  title="Writing"
+  description="Writing by Naman Goyal, including solutions to the monthly Jane Street puzzles."
+>
+  <div class="page">
+    <h1 class="page-title">Writing</h1>
+    <p class="page-lede">Puzzle solutions, notes and the occasional essay.</p>
+
+    <section class="section" aria-labelledby="js">
+      <h2 class="section-title" id="js">Jane Street puzzles</h2>
+      <div class="callout">
+        <p>
+          I solve the <a href="https://www.janestreet.com/puzzles/" rel="noopener">Jane Street monthly puzzle</a> every
+          month. Correct solvers are listed on Jane Street's site, where I appear as <strong>Naman Goyal IITD'28</strong>.
+        </p>
+        <p>
+          Each write-up goes up here once Jane Street has posted the official solution, together with the code that found
+          the answer and an independent checker.
+        </p>
+      </div>
+
+      <table class="table" style="margin-top:1.5rem">
+        <thead>
+          <tr><th>Month</th><th>Puzzle</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {
+            puzzles.map((z) => {
+              const slug = z.data.post?.id;
+              const hasPost = slug && live.has(slug);
+              return (
+                <tr>
+                  <td class="num">{z.data.month}</td>
+                  <td>
+                    {hasPost ? (
+                      <a href={`/writing/${slug}/`}>{z.data.title}</a>
+                    ) : z.data.url ? (
+                      <a href={z.data.url} rel="noopener">{z.data.title}</a>
+                    ) : (
+                      z.data.title
+                    )}
+                    {!hasPost && z.data.solved && <span class="faint"> &middot; write-up after the official solution</span>}
+                  </td>
+                  <td class="status">{z.data.solved ? <span class="ok">Solved</span> : <span class="faint">Attempted</span>}</td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </section>
+
+    {
+      other.map((g) => (
+        <section class="section" aria-label={g.name}>
+          <h2 class="section-title">{g.name}</h2>
+          <ul class="post-list">
+            {g.posts.map((p) => (
+              <li>
+                <a class="title" href={`/writing/${p.id}/`}>{p.data.title}</a>
+                <span class="faint"> &middot; {fmtDate(p.data.date)}</span>
+                <p>{p.data.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Base>

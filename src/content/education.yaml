@@ -1,0 +1,10 @@
+- id: iitd
+  school: Indian Institute of Technology Delhi
+  short: IIT Delhi
+  degree: B.Tech. in Electrical Engineering, Minor in Computer Science
+  period: 2024 – 2028
+  location: New Delhi, India
+  details:
+    - CGPA 9.22 / 10, Department Rank 1
+    - Institute Merit Award, given to the top 7% of the institute, in semesters 1 and 3
+    - "Coursework: Data Structures and Algorithms, Computer Architecture, Digital Electronics, Probability"

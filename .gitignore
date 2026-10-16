@@ -19,5 +19,5 @@ npm-debug.log*
 .env.*
 !.env.example
 
-# old-site backups — kept on disk, not published
+# old-site backups, kept on disk and not published
 backup/

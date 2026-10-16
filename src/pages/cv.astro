@@ -1,99 +1,159 @@
 ---
+import { list } from "../lib/content";
 import Base from "../layouts/Base.astro";
-import Section from "../components/Section.astro";
-import { experience } from "../data/experience";
-import { education, skillGroups } from "../data/about";
-import { site } from "../data/site";
+import Icon from "../components/Icon.astro";
+import { site } from "../site.config";
+import { authorList, inline } from "../lib/inline";
+
+const education = await list("education");
+const roles = (await list("experience")).filter((r) => r.data.kind === "work");
+const leadership = (await list("experience")).filter((r) => r.data.kind === "leadership");
+const papers = await list("papers");
+const projects = await list("projects");
+const skills = await list("skills");
+const top = (await list("achievements")).slice(0, 9);
 ---
 
 <Base
-  title="CV — Naman Goyal"
-  description="Curriculum vitae of Naman Goyal: Electrical Engineering at IIT Delhi (Dept. Rank 1), research at CISPA Helmholtz Center, incoming software engineering intern at Virtu Financial."
+  title="CV"
+  description="Curriculum vitae of Naman Goyal: Electrical Engineering at IIT Delhi (Department Rank 1), research at CISPA, and incoming Software Engineering Intern at Virtu Financial."
 >
-  <header class="text-center">
-    <h1 class="text-[1.7rem] font-extrabold tracking-[-0.02em]">Curriculum Vitae</h1>
-    <p class="mt-1 text-[0.9rem] u-faint">// education, experience, skills.</p>
-    <p class="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.85rem]">
-      {/* Two paths on purpose: most people want to glance at it, not commit
-          a file to their downloads folder. `view` opens the browser's PDF
-          reader in a new tab; `download` forces the save with the download
-          attribute (same-origin, so it works). */}
-      <a class="b" href={site.resume} target="_blank" rel="noopener">view pdf</a>
-      <a class="b" href={site.resume} download>download</a>
-    </p>
-  </header>
+  <div class="page">
+    <h1 class="page-title">Curriculum Vitae</h1>
+    <p class="page-lede">A summary is below. The PDF is the version to download and share.</p>
+    <div class="btn-row">
+      <a class="btn primary" href={site.resume} target="_blank" rel="noopener"><Icon name="file" />View PDF</a>
+      <a class="btn" href={site.resume} download="Naman_Goyal_Resume.pdf"><Icon name="download" />Download</a>
+    </div>
 
-  <Section title="Education">
-    {
-      education.map((e) => (
-        <div>
-          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
-            <h3 class="font-bold">{e.org}</h3>
-            <span class="text-[0.82rem] u-faint">{e.meta.split("·")[0].trim()}</span>
-          </div>
-          <p class="mt-0.5 u-muted">{e.detail}</p>
-          <p class="mt-0.5 text-[0.85rem] u-faint">{e.meta.split("·").slice(1).join(" ·").trim()}</p>
-          {e.honors && <p class="prose-j mt-1.5 u-muted">{e.honors}</p>}
-        </div>
-      ))
-    }
-  </Section>
-
-  <Section title="Experience">
-    <ul class="space-y-7">
+    <section class="section" aria-labelledby="edu">
+      <h2 class="section-title" id="edu">Education</h2>
       {
-        experience.map((r) => (
-          <li>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4">
-              <h3 class="font-bold">
-                {r.org}
-                {r.upcoming && <span class="ml-2 text-[0.78rem] font-normal u-faint">[incoming]</span>}
-              </h3>
-              <span class="text-[0.82rem] u-faint">{r.period}</span>
+        education.map((e) => (
+          <article>
+            <div class="entry-head">
+              <h3 class="entry-title">{e.data.school}</h3>
+              <span class="entry-period">{e.data.period}</span>
             </div>
-            <p class="mt-0.5 u-muted">
-              {r.title}
-              {r.location && <span class="u-faint"> &middot; {r.location}</span>}
-            </p>
-
-            {r.points.length > 0 && (
-              <ul class="mt-2 space-y-1.5">
-                {r.points.map((pt) => (
-                  <li class="grid grid-cols-[1.4rem_1fr] u-muted">
-                    <span class="u-faint">-</span>
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
+            <p class="entry-sub">{e.data.degree}</p>
+            <ul class="bullets">
+              {e.data.details.map((d) => (
+                <li set:html={inline(d)} />
+              ))}
+            </ul>
+          </article>
         ))
       }
-    </ul>
-  </Section>
+    </section>
 
-  <Section title="Technical Skills">
-    <dl class="space-y-2">
-      {
-        skillGroups.map((g) => (
-          <div class="row row--wide">
-            <dt class="u-faint">[{g.label.split(" ")[0].toLowerCase()}]</dt>
-            <dd class="u-muted">{g.items.join(", ")}</dd>
-          </div>
-        ))
-      }
-    </dl>
-  </Section>
+    <section class="section" aria-labelledby="exp">
+      <h2 class="section-title" id="exp">Experience</h2>
+      <div class="entries">
+        {
+          roles.map((r) => (
+            <article>
+              <div class="entry-head">
+                <h3 class="entry-title">
+                  {r.data.org}
+                  {r.data.upcoming && <span class="badge">Incoming</span>}
+                </h3>
+                <span class="entry-period">{r.data.period}</span>
+              </div>
+              <p class="entry-sub">
+                {r.data.title}
+                {r.data.location && (
+                  <>
+                    <span class="sep">&middot;</span>
+                    {r.data.location}
+                  </>
+                )}
+              </p>
+              {r.data.points.length > 0 && (
+                <ul class="bullets">
+                  {r.data.points.map((pt) => (
+                    <li set:html={inline(pt)} />
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </section>
 
-  <Section title="Contact">
-    <p class="prose-j u-muted">
-      Open to research collaborations and conversations about low-latency systems and quantum computing. Email is the
-      fastest way to reach me.
-    </p>
-    <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.85rem]">
-      <a class="b" href={`mailto:${site.email}`}>email</a>
-      <a class="b" href={site.socials.github} target="_blank" rel="noopener">github</a>
-      <a class="b" href={site.socials.linkedin} target="_blank" rel="noopener">linkedin</a>
-    </p>
-  </Section>
+    <section class="section" aria-labelledby="pub">
+      <h2 class="section-title" id="pub">Papers</h2>
+      <ul class="bullets">
+        {
+          papers.map((p) => (
+            <li>
+              <Fragment set:html={authorList(p.data.authors, site.name)} />. <em>{p.data.title}</em>. {p.data.venue},{" "}
+              {p.data.year}.{" "}
+              {p.data.links[0] && (
+                <a href={p.data.links[0].href} rel="noopener">
+                  {p.data.links[0].label}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="proj">
+      <h2 class="section-title" id="proj">Projects</h2>
+      <ul class="bullets">
+        {
+          projects.map((p) => (
+            <li>
+              <a href={`/experience/#${p.id}`} style="font-weight:600;color:var(--text)">{p.data.title}</a>
+              <span class="faint"> &middot; {p.data.stack.slice(0, 3).join(", ")}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="hon">
+      <h2 class="section-title" id="hon">Selected honors</h2>
+      <ul class="bullets">
+        {
+          top.map((a) => (
+            <li>
+              <span style="color:var(--text);font-weight:600">{a.data.title}</span>
+              <span class="faint"> &middot; {a.data.badge}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p style="margin-top:.9rem;font-size:.93rem"><a href="/achievements/">All achievements</a></p>
+    </section>
+
+    <section class="section" aria-labelledby="lead">
+      <h2 class="section-title" id="lead">Leadership</h2>
+      <ul class="bullets">
+        {
+          leadership.map((r) => (
+            <li>
+              <span style="color:var(--text);font-weight:600">{r.data.title}</span>, {r.data.org}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="skills">
+      <h2 class="section-title" id="skills">Skills</h2>
+      <dl class="cv-row">
+        {
+          skills.map((s) => (
+            <>
+              <dt>{s.data.label}</dt>
+              <dd>{s.data.items.join(", ")}</dd>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+  </div>
 </Base>

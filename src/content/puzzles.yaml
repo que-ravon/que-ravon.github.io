@@ -1,0 +1,9 @@
+# one entry per month, newest first. set `post` to the slug of a write-up in
+# src/content/writing once jane street has published the official solution.
+
+- id: 2026-10
+  month: October 2026
+  title: It's a Metric, Too
+  url: https://www.janestreet.com/puzzles/
+  solved: true
+  post: 2026-10-its-a-metric-too

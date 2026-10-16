@@ -1,0 +1,32 @@
+# newest first. keep about six entries and delete old ones.
+# text accepts **bold**, *italic*, [links](/research/) and inline html such as <sup>.
+
+- id: 2026-10-paper
+  date: Oct 2026
+  text: Posted a preprint, *Quantum Query Complexity of Minimum Weight Cycles*, with an Õ(n<sup>19/12</sup>) query algorithm for exact minimum weight cycle.
+  href: /research/
+
+- id: 2026-10-puzzle
+  date: Oct 2026
+  text: Solved the October Jane Street puzzle, *It's a Metric, Too*.
+  href: /writing/
+
+- id: 2026-08-virtu
+  date: Aug 2026
+  text: Accepted an offer to join **Virtu Financial** in Singapore as a Software Engineering Intern for summer 2027.
+  href: /experience/
+
+- id: 2026-07-cispa
+  date: Jul 2026
+  text: Completed a research internship at **CISPA Helmholtz Center for Information Security** on the security of open-source RISC-V processors.
+  href: /research/
+
+- id: 2026-hackathon
+  date: 2026
+  text: Won the CISPA European AI and Cybersecurity Hackathon.
+  href: /achievements/
+
+- id: 2026-fpga
+  date: 2026
+  text: Released two formally verified FPGA designs, a tick-to-trade engine and a wire-speed packet parser.
+  href: /experience/#projects

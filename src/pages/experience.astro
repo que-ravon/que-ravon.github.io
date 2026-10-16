@@ -1,0 +1,115 @@
+---
+import { list } from "../lib/content";
+import Base from "../layouts/Base.astro";
+import Links from "../components/Links.astro";
+import { inline } from "../lib/inline";
+
+const roles = await list("experience");
+const work = roles.filter((r) => r.data.kind === "work");
+const leadership = roles.filter((r) => r.data.kind === "leadership");
+const projects = await list("projects");
+---
+
+<Base
+  title="Experience"
+  description="Experience of Naman Goyal: incoming Software Engineering Intern at Virtu Financial, research intern at CISPA, and selected projects in FPGA design, low-latency C++ and quantum computing."
+>
+  <div class="page">
+    <h1 class="page-title">Experience</h1>
+    <p class="page-lede">Industry and research roles, selected engineering projects, and leadership at IIT Delhi.</p>
+
+    <section class="section" aria-labelledby="work">
+      <h2 class="section-title" id="work">Work</h2>
+      <div class="entries">
+        {
+          work.map((r) => (
+            <article>
+              <div class="entry-head">
+                <h3 class="entry-title">
+                  {r.data.url ? <a href={r.data.url} rel="noopener">{r.data.org}</a> : r.data.org}
+                  {r.data.upcoming && <span class="badge">Incoming</span>}
+                </h3>
+                <span class="entry-period">{r.data.period}</span>
+              </div>
+              <p class="entry-sub">
+                {r.data.title}
+                {r.data.location && (
+                  <>
+                    <span class="sep">&middot;</span>
+                    {r.data.location}
+                  </>
+                )}
+              </p>
+              {r.data.points.length > 0 && (
+                <ul class="bullets">
+                  {r.data.points.map((pt) => (
+                    <li set:html={inline(pt)} />
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="projects">
+      <h2 class="section-title" id="projects">Selected projects</h2>
+      <div class="entries">
+        {
+          projects.map((p) => (
+            <article id={p.id}>
+              <div class="entry-head">
+                <h3 class="entry-title">
+                  {p.data.links[0] ? <a href={p.data.links[0].href} rel="noopener">{p.data.title}</a> : p.data.title}
+                </h3>
+                <span class="entry-period">{p.data.year}</span>
+              </div>
+              <p class="entry-summary" set:html={inline(p.data.summary)} />
+              {p.data.points.length > 0 && (
+                <ul class="bullets">
+                  {p.data.points.map((pt) => (
+                    <li set:html={inline(pt)} />
+                  ))}
+                </ul>
+              )}
+              <ul class="tags">
+                {p.data.stack.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              <Links links={p.data.links} />
+            </article>
+          ))
+        }
+      </div>
+      <p class="faint" style="margin-top:2rem;font-size:.93rem">
+        More work is on <a href="https://github.com/namangoyal-work" rel="noopener">GitHub</a>.
+      </p>
+    </section>
+
+    <section class="section" aria-labelledby="leadership">
+      <h2 class="section-title" id="leadership">Leadership</h2>
+      <div class="entries" style="gap:1.4rem">
+        {
+          leadership.map((r) => (
+            <article>
+              <div class="entry-head">
+                <h3 class="entry-title" style="font-size:1rem">{r.data.title}</h3>
+                {r.data.period && <span class="entry-period">{r.data.period}</span>}
+              </div>
+              <p class="entry-sub">{r.data.org}</p>
+              {r.data.points.length > 0 && (
+                <ul class="bullets">
+                  {r.data.points.map((pt) => (
+                    <li set:html={inline(pt)} />
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Base>

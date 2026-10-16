@@ -1,0 +1,12 @@
+- id: languages
+  label: Languages
+  items: [C++20, SystemVerilog, Verilog, Python, C, JavaScript, MATLAB]
+- id: systems
+  label: Systems and hardware
+  items: [Linux, GDB, perf, CMake, Vivado, SymbiYosys, cocotb, Artix-7 FPGAs]
+- id: libraries
+  label: Libraries
+  items: [PyTorch, Qiskit, NumPy, pandas, OR-Tools]
+- id: tools
+  label: Tools
+  items: [Git, Docker, GitHub Actions]

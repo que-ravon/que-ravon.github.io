@@ -1,35 +1,48 @@
 ---
+import { list } from "../lib/content";
 import Base from "../layouts/Base.astro";
-import Section from "../components/Section.astro";
-import { achievementPhases } from "../data/achievements";
+
+const all = await list("achievements");
+const phases = ["University", "Pre-University"] as const;
+
+// keep yaml order inside each phase and group
+const byPhase = phases.map((phase) => {
+  const items = all.filter((a) => a.data.phase === phase);
+  const groups = [...new Set(items.map((a) => a.data.group))];
+  return { phase, groups: groups.map((g) => ({ name: g, items: items.filter((a) => a.data.group === g) })) };
+});
 ---
 
 <Base
-  title="Achievements — Naman Goyal"
-  description="Awards and honours: CISPA European AI & Cybersecurity Hackathon champion, Atlassian FastTrack winner, Dept. Rank 1 at IIT Delhi, USACO Platinum with a perfect 1000/1000, INPhO and INAO golds, INMO."
+  title="Achievements"
+  description="Awards and olympiad results of Naman Goyal: hackathon wins at CISPA and Atlassian, USACO Platinum with a perfect score, INPhO and INAO gold, INMO awardee, and the Atlas Fellowship."
 >
-  <header class="text-center">
-    <h1 class="text-[1.7rem] font-extrabold tracking-[-0.02em]">Achievements</h1>
-    <p class="mt-1 text-[0.9rem] u-faint">// every entry here is certificate-verified.</p>
-  </header>
+  <div class="page">
+    <h1 class="page-title">Achievements</h1>
+    <p class="page-lede">Competition results, awards and selective programs, from university back to school.</p>
 
-  {
-    achievementPhases.map((phase) =>
-      phase.groups.map((g) => (
-        <Section title={`${phase.phase} — ${g.heading}`}>
-          <ul class="space-y-4">
-            {g.items.map((a) => (
-              <li class="row row--wide">
-                <span class="u-faint">[{a.badge}]</span>
-                <div>
-                  <p class="font-bold">{a.title}</p>
-                  <p class="prose-j mt-0.5 u-muted">{a.detail}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )),
-    )
-  }
+    {
+      byPhase.map(({ phase, groups }) => (
+        <section class="section" aria-label={phase}>
+          <h2 class="section-title">{phase}</h2>
+          {groups.map((g) => (
+            <>
+              {groups.length > 1 && <h3 class="group-title">{g.name}</h3>}
+              <ul class="awards">
+                {g.items.map((a) => (
+                  <li>
+                    <span class="award-badge">{a.data.badge}</span>
+                    <div>
+                      <div class="award-title">{a.data.title}</div>
+                      <p class="award-detail">{a.data.detail}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ))}
+        </section>
+      ))
+    }
+  </div>
 </Base>

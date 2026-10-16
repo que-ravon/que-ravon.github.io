@@ -1,0 +1,55 @@
+# kind: work shows under Experience, leadership under Leadership.
+# points are results, one sentence each, past tense, no first person.
+
+- id: virtu
+  kind: work
+  org: Virtu Financial
+  title: Software Engineering Intern
+  location: Singapore
+  period: May – Jul 2027
+  upcoming: true
+  url: https://www.virtu.com
+
+- id: cispa
+  kind: work
+  org: CISPA Helmholtz Center for Information Security
+  title: Research Intern, Trusted Systems Group
+  location: Saarbrücken, Germany
+  period: May – Jul 2026
+  url: https://cispa.de
+  points:
+    - Audited 131 open-source RISC-V cores by hand against their stated security claims, reading RTL, testbenches and commit history for each one.
+    - Designed the study's taxonomy of 13 dimensions and 50 attributes, covering reproducibility, verification and CI/CD resilience.
+    - Built the reproducible Python analysis pipeline, including the inter-rater reliability module, which produces 50+ figures and two composite hardware-security indices.
+    - Found that 95% of the cores have no side-channel defenses and 77% have no secure boot. The findings are part of a paper the group is preparing.
+
+- id: quant-club
+  kind: leadership
+  org: Quant Club, IIT Delhi
+  title: Coordinator
+
+- id: edc
+  kind: leadership
+  org: Entrepreneurship Development Cell, IIT Delhi
+  title: Executive
+
+- id: aries
+  kind: leadership
+  org: ARIES, the AI society of IIT Delhi
+  title: Research Executive
+  period: 2025 – present
+  points:
+    - Works on the society's technical and research projects in machine learning.
+
+- id: mentor
+  kind: leadership
+  org: Board for Student Welfare, IIT Delhi
+  title: Academic Mentor, Calculus (MTL100)
+  period: 2025 – present
+  points:
+    - Mentors first-year students through single and multivariable calculus.
+
+- id: dept-rep
+  kind: leadership
+  org: Department of Electrical Engineering, IIT Delhi
+  title: Department Representative

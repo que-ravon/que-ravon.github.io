@@ -1,25 +1,31 @@
 {
-  "name": "namangoyal-portfolio",
+  "name": "namangoyal.me",
   "type": "module",
-  "version": "2.0.0",
-  "description": "Personal portfolio of Naman Goyal — built with Astro + TypeScript.",
+  "private": true,
+  "version": "3.0.0",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
     "check": "astro check"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.1",
-    "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^5.1.5",
-    "tailwindcss": "^4.3.3"
+    "@astrojs/markdown-remark": "7.3.2",
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource-variable/inter": "5.3.0",
+    "astro": "7.3.8",
+    "katex": "0.19.0",
+    "rehype-katex": "7.0.1",
+    "remark-math": "6.0.0",
+    "simple-icons": "16.35.0",
+    "yaml": "2.8.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "typescript": "^5.7.3"
+    "@astrojs/check": "0.9.10",
+    "typescript": "5.9.3"
   }
 }

@@ -1,125 +1,30 @@
 ---
-/**
- * Base.astro — the shell every page shares.
- *
- * Terminal-academic: one 880px column on a dot grid, monospace throughout,
- * bracketed navigation, a theme toggle pinned top-right. No cards, no
- * shadows — separation is whitespace and dashed rules.
- */
-import "@fontsource-variable/jetbrains-mono";
-import "../styles/global.css";
-import { ClientRouter } from "astro:transitions";
-import Seo from "../components/Seo.astro";
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  type?: "website" | "article";
+  published?: Date;
 }
-
-const { title, description, noindex } = Astro.props;
-
-const pages = [
-  { href: "/", label: "home" },
-  { href: "/research", label: "research" },
-  { href: "/projects", label: "projects" },
-  { href: "/achievements", label: "achievements" },
-  { href: "/cv", label: "cv" },
-];
-
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+const head = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <Seo title={title} description={description} noindex={noindex} />
-    <ClientRouter />
-
-    <script is:inline>
-      (() => {
-        try {
-          const saved = localStorage.getItem("theme");
-          const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          document.documentElement.setAttribute("data-theme", saved || (dark ? "dark" : "light"));
-        } catch {
-          document.documentElement.setAttribute("data-theme", "dark");
-        }
-      })();
-    </script>
+    <Head {...head} />
   </head>
-
   <body>
-    <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:px-3 focus:py-1.5" href="#main">
-      skip to content
-    </a>
-
-    <button
-      data-theme-toggle
-      type="button"
-      class="fixed right-4 top-4 z-40 grid h-9 w-9 place-items-center border u-line"
-      style="color: var(--muted); background: var(--bg);"
-      aria-label="Toggle theme"
-    >
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-        <circle cx="12" cy="12" r="4"></circle>
-        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
-      </svg>
-    </button>
-
-    <div class="page pb-16 pt-12 sm:pt-14">
-      <nav class="mb-12 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.82rem]" aria-label="Primary">
-        {
-          pages.map((p) => (
-            <a
-              href={p.href}
-              class="b"
-              aria-current={isActive(p.href) ? "page" : undefined}
-              style={isActive(p.href) ? "background: var(--mark);" : undefined}
-            >
-              {p.label}
-            </a>
-          ))
-        }
-      </nav>
-
-      <main id="main">
-        <slot />
-      </main>
-
-      <Footer />
-    </div>
-
-    <script>
-      const apply = () => {
-        const btn = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
-        if (!btn || btn.dataset.bound) return;
-        btn.dataset.bound = "1";
-        btn.addEventListener("click", () => {
-          const root = document.documentElement;
-          const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-          root.setAttribute("data-theme", next);
-          try {
-            localStorage.setItem("theme", next);
-          } catch {
-            /* private mode — the choice just won't persist */
-          }
-        });
-      };
-      apply();
-      // The inline head script doesn't re-run on client-side navigation.
-      document.addEventListener("astro:after-swap", () => {
-        try {
-          const saved = localStorage.getItem("theme");
-          if (saved) document.documentElement.setAttribute("data-theme", saved);
-        } catch {}
-        apply();
-      });
-    </script>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
