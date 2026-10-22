@@ -11,7 +11,7 @@ export const site = {
   // shown in the sidebar on the home page, in this order. icon names map to src/components/Icon.astro
   links: [
     { label: "Email", href: "mailto:mail.namangoyal@gmail.com", icon: "mail" },
-    { label: "GitHub", href: "https://github.com/namangoyal-work", icon: "github" },
+    { label: "GitHub", href: "https://github.com/que-ravon", icon: "github" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/namangoyalo", icon: "linkedin" },
     { label: "ORCID", href: "https://orcid.org/0009-0007-3300-6213", icon: "orcid" },
     { label: "Curriculum Vitae", href: "/cv/", icon: "file" },
@@ -56,7 +56,7 @@ export const site = {
 
   // extra profiles for schema.org sameAs. add any profile that is really yours.
   profiles: [
-    "https://github.com/namangoyal-work",
+    "https://github.com/que-ravon",
     "https://www.linkedin.com/in/namangoyalo",
     "https://orcid.org/0009-0007-3300-6213",
   ],

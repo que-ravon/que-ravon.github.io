@@ -10,7 +10,7 @@
     - Proved with SymbiYosys that a trade cannot fire unless every validation check has passed on a complete frame, and that a risk cap on order quantity always holds.
     - Emits 16-byte decision records with an echoed sequence number on AXI-Stream, so the host can measure end-to-end latency.
   links:
-    - { label: GitHub, href: "https://github.com/namangoyal-work/fpga-tick-to-trade" }
+    - { label: GitHub, href: "https://github.com/que-ravon/fpga-tick-to-trade" }
 
 - id: net-parser
   title: Wire-Speed FPGA Network Parser
@@ -22,7 +22,7 @@
     - Raised Fmax from 159 to 281 MHz by pipelining the checksum fold out of the trigger's critical path.
     - Formally proved the constant verdict latency, and tested the design with malformed and edge-case packets from a cocotb and scapy bench.
   links:
-    - { label: GitHub, href: "https://github.com/namangoyal-work/fpga-net-parser" }
+    - { label: GitHub, href: "https://github.com/que-ravon/fpga-net-parser" }
 
 - id: order-book
   title: Limit Order Book and ITCH Feed Handler
@@ -41,7 +41,7 @@
   points:
     - Uses a precomputed base-case table and a vectorised nearest-neighbour search for the recursion.
   links:
-    - { label: GitHub, href: "https://github.com/namangoyal-work/unitary-decomposer" }
+    - { label: GitHub, href: "https://github.com/que-ravon/unitary-decomposer" }
 
 - id: kan-pinn
   title: KAN-PINN for Battery State of Health
@@ -52,7 +52,7 @@
     - Constrains predictions with a Verhulst degradation ODE through an augmented Lagrangian, with learnable physical parameters and per-sample multipliers.
     - Runs end to end on the MIT and Stanford fast-charging dataset.
   links:
-    - { label: GitHub, href: "https://github.com/namangoyal-work/KAN-PINN-Battery-SOH" }
+    - { label: GitHub, href: "https://github.com/que-ravon/KAN-PINN-Battery-SOH" }
 
 - id: qicqacqoe
   title: QicQacQoe
@@ -60,4 +60,4 @@
   stack: [Python, Qiskit, Aer]
   summary: Tic-tac-toe where every square is a simulated qubit. Every move is appended to a real Qiskit circuit, and every measurement is a simulated collapse of the board state.
   links:
-    - { label: GitHub, href: "https://github.com/namangoyal-work/QicQacQoe" }
+    - { label: GitHub, href: "https://github.com/que-ravon/QicQacQoe" }

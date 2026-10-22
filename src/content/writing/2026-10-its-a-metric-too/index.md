@@ -68,12 +68,12 @@ I could not push the hand reasoning much further than this, so the rest was done
 
 ## Finding the partition
 
-My first attempt was an exact search in C++, which is in [`cpp-search/`](https://github.com/namangoyal-work/jane-street-puzzles/tree/main/2026-10-its-a-metric-too/cpp-search).
+My first attempt was an exact search in C++, which is in [`cpp-search/`](https://github.com/que-ravon/jane-street-puzzles/tree/main/2026-10-its-a-metric-too/cpp-search).
 It builds the partition one state at a time, fixes the size of a state when it creates it, and prunes with lower and upper bounds on $d$ at every square.
 It is fast on small grids and agreed with brute force on a few hundred random test puzzles, but it never finished the 11 by 11.
 The trouble is that it enumerates the shapes of one large state long before anything around it is placed, and nothing can rule those shapes out until much later.
 
-The solution came from a CP-SAT model, [`solve.py`](https://github.com/namangoyal-work/jane-street-puzzles/blob/main/2026-10-its-a-metric-too/solve.py).
+The solution came from a CP-SAT model, [`solve.py`](https://github.com/que-ravon/jane-street-puzzles/blob/main/2026-10-its-a-metric-too/solve.py).
 The model is built in four steps.
 First, every square $v$ gets a variable $\mathrm{root}(v)$, the smallest index in its state, and connectivity is enforced with a depth labelling.
 In a second step, every square carries a symmetry label $t$ that is constant on its state, and $t(v)$ must lie in the same state as $v$.
@@ -90,7 +90,7 @@ It stops at the first solution, so the uniqueness of the answer rests on the puz
 
 ## Checking
 
-[`verify.py`](https://github.com/namangoyal-work/jane-street-puzzles/blob/main/2026-10-its-a-metric-too/verify.py) checks the answer and shares no code with the solver.
+[`verify.py`](https://github.com/que-ravon/jane-street-puzzles/blob/main/2026-10-its-a-metric-too/verify.py) checks the answer and shares no code with the solver.
 It tests every state for connectivity and symmetry, finds the capitols, runs Dijkstra from all capitols at once, and compares the distances with the 33 clues.
 
 ```
