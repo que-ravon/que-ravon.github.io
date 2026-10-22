@@ -5,12 +5,12 @@ export const site = {
   headline: "Electrical Engineering, IIT Delhi",
   affiliation: "Indian Institute of Technology Delhi",
   location: "New Delhi, India",
-  email: "namangoyal@tutamail.com",
+  email: "mail.namangoyal@gmail.com",
   resume: "/Naman_Goyal_Resume.pdf",
 
   // shown in the sidebar on the home page, in this order. icon names map to src/components/Icon.astro
   links: [
-    { label: "Email", href: "mailto:namangoyal@tutamail.com", icon: "mail" },
+    { label: "Email", href: "mailto:mail.namangoyal@gmail.com", icon: "mail" },
     { label: "GitHub", href: "https://github.com/namangoyal-work", icon: "github" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/namangoyalo", icon: "linkedin" },
     { label: "ORCID", href: "https://orcid.org/0009-0007-3300-6213", icon: "orcid" },
