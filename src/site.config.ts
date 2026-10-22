@@ -6,7 +6,7 @@ export const site = {
   affiliation: "Indian Institute of Technology Delhi",
   location: "New Delhi, India",
   email: "mail.namangoyal@gmail.com",
-  resume: "/Naman_Goyal_Resume.pdf",
+  cv: "/Naman_Goyal_CV.pdf",
 
   // shown in the sidebar on the home page, in this order. icon names map to src/components/Icon.astro
   links: [

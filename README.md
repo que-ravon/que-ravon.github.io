@@ -29,7 +29,7 @@ To add a post, make a new folder in `src/content/writing/` with an `index.md` li
 A post with `draft: true` only shows up when running locally.
 To link a puzzle to its write-up, set `post:` in `puzzles.yaml` to the folder name.
 
-The resume is `public/Naman_Goyal_Resume.pdf`, and `/resume` always points to it.
+The CV is `public/Naman_Goyal_CV.pdf`.
 After changing the photo, run `node scripts/og.mjs` to rebuild the link preview image.
 
 ## Running it locally

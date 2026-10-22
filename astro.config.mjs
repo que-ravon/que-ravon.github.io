@@ -10,15 +10,14 @@ export default defineConfig({
   trailingSlash: "ignore",
   devToolbar: { enabled: false },
 
-  // old urls keep working. /resume is the link to hand out for the pdf.
+  // old urls keep working.
   redirects: {
-    "/resume": "/Naman_Goyal_Resume.pdf",
     "/projects": "/experience/#projects",
   },
 
   integrations: [
     sitemap({
-      filter: (page) => !/\/(resume|projects)\/?$/.test(page),
+      filter: (page) => !/\/projects\/?$/.test(page),
     }),
   ],
 
